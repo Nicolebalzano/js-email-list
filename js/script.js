@@ -8,6 +8,8 @@
 const emailContainer = document.getElementById("contenitore-email");
 const secondEmailContainer = document.getElementById("secondo-contenitore-email");
 const spinnerElem = document.querySelector(".spinner-border");
+const buttonElem = document.querySelector(".btn");
+
 
 
 for (let i = 1; i <= 10; i++) {
@@ -18,25 +20,22 @@ for (let i = 1; i <= 10; i++) {
     const email = resp.data.response;
     
 setTimeout(() => {
-    emailContainer.innerHTML += `<li class="list-group-item list-group-item-action fs-2 mb-0">${email}</li>`;
-   firstTenEmails.push(email);
+    emailContainer.innerHTML += `<li class=" fs-4 mb-3">${email}</li>`;
    spinnerElem.classList.add("d-none");
-
-}, 2000);      
-
-// buttonElem.addEventListener ("click", moreEmails);
-// function moreEmails(){
-//      axios
-//     .get("https://flynn.boolean.careers/exercises/api/random/mail")
-// .then((resp) => {   
-//     emailContainer.classList.add("d-none");
-//     const secondListEmail = resp.data.response;
-// secondEmailContainer.innerHTML += `<li>${secondListEmail}</li>`})
-
-// }
+    buttonElem.classList.remove("d-none");
+}, 2000);   buttonElem.addEventListener("click", function(){
+  firstTenEmails.push(email);
+  console.log(firstTenEmails);
+emailContainer.innerHTML = "";
+  axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
+  .then((resp) => {
+    const nextEmail = resp.data.response;
+   emailContainer.innerHTML += `<li class=" fs-4 mb-3">${nextEmail}</li>`;
+   firstTenEmails.push(nextEmail);
+  })
+})   
 })
 
 }
-
 
 
